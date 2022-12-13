@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { v4 as uuid} from "uuid";
 import {
   getAuth,
   signInWithPopup,
@@ -6,7 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, child, get, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -73,4 +74,16 @@ async function adminUser(user) {
       }
       return user;
     });
+}
+
+// 클라우디너리에 이미지 등록 후 url과 product 받아와 firebase에 업데이트
+export async function addNewProduct(product, imageUrl){ 
+    const id = uuid();
+    return set(ref(database, `products/${id}`), {
+      ...product,
+      id,
+      price: parseInt(product.price),
+      imageUrl,
+      options : product.options.split(','),
+    })
 }

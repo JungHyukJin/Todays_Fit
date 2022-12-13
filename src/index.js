@@ -1,42 +1,59 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './pages/Home';
-import AllProducts from './pages/AllProducts';
-import NewProduct from './pages/NewProduct';
-import ProductDetail from './pages/ProductDetail';
-import MyCart from './pages/MyCart';
-import NotFound from './pages/NotFound';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import AllProducts from "./pages/AllProducts";
+import NewProduct from "./pages/NewProduct";
+import ProductDetail from "./pages/ProductDetail";
+import MyCart from "./pages/MyCart";
+import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />, 
-    errorElement: <NotFound />, 
+    path: "/",
+    element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
-        index:true, path:'/', element: <Home />
+        index: true,
+        path: "/",
+        element: <Home />,
       },
       {
-        path:'/products', element: <AllProducts />,
+        path: "/products",
+        element: <AllProducts />,
       },
       {
-        path:'/products/new', element: <NewProduct />,
+        path: "/products/new",
+        element: (
+          <ProtectedRoute>
+            {/* admin만 봐야함 */}
+            <NewProduct />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/products/:id', element: <ProductDetail />,
+        path: "/products/:id",
+        element: <ProductDetail />,
       },
       {
-        path:'/cart', element: <MyCart />
+        path: "/cart",
+        element: (
+          <ProtectedRoute>
+            {/* 로그인 한 사용자만 봐야함 */}
+            <MyCart />
+          </ProtectedRoute>
+        ),
       },
-    ]
-  }
+    ],
+  },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />

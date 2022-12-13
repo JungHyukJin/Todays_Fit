@@ -15,6 +15,10 @@ $ npx tailwindcss init
 // firebase 연동
 $ yarn add firebase
 
+// 고유 id세팅을 위한 uuid 설치
+$ yarn add uuid
+
+
 ```
 
 ### Tailwind css 사용법
