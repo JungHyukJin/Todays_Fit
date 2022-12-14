@@ -39,7 +39,7 @@ export default function NewProduct() {
     <section className="w-full text-center mb-12">
       <p className=" text-2xl font-bold my-4">새로운 제품 등록</p>
       {success && <p className="my-2">{success}</p>}
-      {file && <img className="w-96 mb-4 mx-auto" src={URL.createObjectURL(file)} />}
+      {file && <img className="w-96 mb-4 mx-auto" src={URL.createObjectURL(file)} alt=''/>}
       <form className="flex flex-col mx-12" onSubmit={submitHandler}>
         <input
           type="file"
