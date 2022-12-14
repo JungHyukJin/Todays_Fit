@@ -9,7 +9,7 @@ export function AuthContextProvider({ children }) {
   // 사용자 정보가 남아있다면 로그인 유지
   useEffect(() => {
     onUserStateChange((user) => {
-      console.log(user);
+      // console.log(user);
       setUser(user);
     });
   }, []);

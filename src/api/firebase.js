@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 import {
   getAuth,
   signInWithPopup,
@@ -7,7 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDatabase, ref, child, get, set } from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -62,7 +62,7 @@ export function onUserStateChange(callback) {
   });
 }
 
-// firebase db에 있는 데이터 한번 읽어오기
+// firebase db에 있는 user 데이터 한번 읽어오기
 async function adminUser(user) {
   return get(ref(database, "admins")) //
     .then((snapshot) => {
@@ -77,13 +77,23 @@ async function adminUser(user) {
 }
 
 // 클라우디너리에 이미지 등록 후 url과 product 받아와 firebase에 업데이트
-export async function addNewProduct(product, imageUrl){ 
-    const id = uuid();
-    return set(ref(database, `products/${id}`), {
-      ...product,
-      id,
-      price: parseInt(product.price),
-      imageUrl,
-      options : product.options.split(','),
-    })
+export async function addNewProduct(product, imageUrl) {
+  const id = uuid();
+  return set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    price: parseInt(product.price),
+    imageUrl,
+    options: product.options.split(","),
+  });
+}
+
+// firebase db에 있는 데이터 가져오기.
+export async function getProducts() {
+  return get(ref(database, "products")).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
+  });
 }

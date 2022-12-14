@@ -18,6 +18,9 @@ $ yarn add firebase
 // 고유 id세팅을 위한 uuid 설치
 $ yarn add uuid
 
+// 리액트 쿼리 설치
+$ yarn add @tanstack/react-query
+
 
 ```
 
