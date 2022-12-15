@@ -3,7 +3,8 @@ import { GrCoatCheck } from "react-icons/gr";
 import { BsPencilSquare } from "react-icons/bs";
 import User from "./User.jsx";
 import Button from "./ui/Button.jsx";
-import { useAuthContext } from "./context/AuthContext.jsx";
+import { useAuthContext } from "../context/AuthContext.jsx";
+import CartStatus from './CartStatus.jsx';
 
 export default function Navbar() {
   const { user, login, logout } = useAuthContext();
@@ -26,7 +27,9 @@ export default function Navbar() {
       </Link>
       <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
-        {user && <Link to="/cart">Cart</Link>}
+        {user && <Link to="/cart">
+          <CartStatus />
+          </Link>}
         {user && user.isAdmin && (
           <Link to="/products/new">
             <BsPencilSquare className="text-2xl" />

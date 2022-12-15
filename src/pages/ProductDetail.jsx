@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { addOrUpdateCart } from "../api/firebase";
 import Button from "../components/ui/Button";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function ProductDetail() {
   const {
@@ -8,14 +10,31 @@ export default function ProductDetail() {
       product: { id, imageUrl, title, description, category, price, options },
     },
   } = useLocation();
+
   const [selected, setSelected] = useState(options[0]);
   const selectHandler = (e) => {
     // 옵션 선택
     setSelected(e.target.value);
   };
+
+  const {
+    user: { uid },
+  } = useAuthContext();
   const clickHandler = () => {
     // 장바구니 추가
+    const product = {
+      id,
+      imageUrl,
+      title,
+      description,
+      category,
+      price,
+      option: selected,
+      quantity : 1,
+    };
+    addOrUpdateCart(uid, product);
   };
+
   return (
     <section className="w-full p-4 flex flex-col md:flex-row ">
       <img
