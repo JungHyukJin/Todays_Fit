@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { addNewProduct } from "../api/firebase";
 import { uploadImage } from "../api/uploader";
 import Button from "../components/ui/Button";
+import useProducts from "../hooks/useProducts";
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(null);
+  const { addProduct } = useProducts();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -16,12 +17,17 @@ export default function NewProduct() {
     setIsUploading(true); // submit누르면 버튼 비활성화
     uploadImage(file)
       .then((url) => {
-        addNewProduct(product, url).then(() => {
-          setSuccess("제품이 성공적으로 추가되었습니다..!");
-          setTimeout(() => {
-            setSuccess(null);
-          }, 2000);
-        });
+        addProduct.mutate(
+          { product, url },
+          {
+            onSuccess: () => {
+              setSuccess("제품이 성공적으로 추가되었습니다..!");
+              setTimeout(() => {
+                setSuccess(null);
+              }, 2000);
+            },
+          }
+        );
       })
       .finally(() => setIsUploading(false));
   };
@@ -39,7 +45,13 @@ export default function NewProduct() {
     <section className="w-full text-center mb-12">
       <p className=" text-2xl font-bold my-4">새로운 제품 등록</p>
       {success && <p className="my-2">{success}</p>}
-      {file && <img className="w-96 mb-4 mx-auto" src={URL.createObjectURL(file)} alt=''/>}
+      {file && (
+        <img
+          className="w-96 mb-4 mx-auto"
+          src={URL.createObjectURL(file)}
+          alt=""
+        />
+      )}
       <form className="flex flex-col mx-12" onSubmit={submitHandler}>
         <input
           type="file"
