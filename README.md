@@ -474,8 +474,8 @@ export default function ProductDetail() {
 ---
 <br>
 
-### *제품 상세*
-- 장바구니, 상품 결제
+### *장바구니*
+- 상품 결제
 <img src="./ReadmeImgs/Payment.png" />
 
 ```js
