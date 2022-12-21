@@ -6,7 +6,7 @@ export default function Banner() {
         <div className="w-full h-full bg-cover bg-banner" />
         <div className="absolute w-full text-center text-white top-32">
             <p className="text-6xl">
-                Shop With Us
+                When in doubt, wear us.
             </p>
             <p className="text-2xl">
                 Best Products, High Quality

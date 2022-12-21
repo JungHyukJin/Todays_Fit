@@ -27,28 +27,10 @@ const provider = new GoogleAuthProvider();
 // firebase 실시간 데이터베이스 사용, admin관련 작업 전에 필요
 const database = getDatabase(app);
 
-// 로그인
-// export async function login() {
-//   return signInWithPopup(auth, provider)
-//     .then((result) => {
-//       const user = result.user;
-//       return user; // 로그인 시 사용자 객체 리턴
-//     })
-//     .catch((error) => {
-//       console.error("error", error);
-//     });
-// }
 export function login() {
   signInWithPopup(auth, provider);
 }
 
-// 로그아웃
-// export async function logout() {
-//   const auth = getAuth();
-//   return signOut(auth).then(() => {
-//     return null;
-//   });
-// }
 export function logout() {
   signOut(auth);
 }

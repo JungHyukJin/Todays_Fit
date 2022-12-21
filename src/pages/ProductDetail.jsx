@@ -43,13 +43,13 @@ export default function ProductDetail() {
   };
 
   return (
-    <section className="w-full p-4 flex flex-col md:flex-row ">
+    <section className="w-full p-4 flex flex-col lg:flex-row ">
       <img
-        className="w-full rounded-md shadow-md basis-7/12"
+        className="w-full md:w-6/12 rounded-md shadow-md m-auto"
         src={imageUrl}
         alt=""
       />
-      <div className="w-full flex flex-col basis-5/12 p-4">
+      <div className="w-full flex flex-col p-4">
         <div className="w-full flex justify-between border-b pb-4">
           <p className="text-2xl font-bold">{title}</p>
           <p className="text-2xl font-bold">{`₩${price}`}</p>
